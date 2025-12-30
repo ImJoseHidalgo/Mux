@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet" href="styles.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Mux</title>
+    <script src="/i18n.js"></script>
+    <script src="/main.js" defer></script>
+  </head>
+
+  <body>
+    <main class="container">
+      <div class="header-section">
+        <h1 data-i18n="mainHeader">Mux</h1>
+        <div class="language-selector">
+          <label data-i18n="languageLabel">🌐</label>
+          <select id="language-selector">
+            <option value="en">English</option>
+            <option value="es">Español</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="file-section">
+        <div class="file-input-group">
+          <label data-i18n="videoLabel">📹 Video</label>
+          <button id="select-video" class="select-btn" data-i18n="selectButton">Select</button>
+          <span id="video-name" class="file-name" data-i18n="notSelected">Not selected</span>
+        </div>
+
+        <div class="file-input-group">
+          <label data-i18n="audioLabel">🎵 Audio</label>
+          <button id="select-audio" class="select-btn" data-i18n="selectButton">Select</button>
+          <span id="audio-name" class="file-name" data-i18n="notSelected">Not selected</span>
+        </div>
+
+        <div class="file-input-group">
+          <label data-i18n="outputFolderLabel">📁 Output folder</label>
+          <button id="select-output" class="select-btn" data-i18n="selectButton">Select</button>
+          <span id="output-folder" class="file-name" data-i18n="sameAsVideo">Same folder as video</span>
+        </div>
+
+        <div class="file-input-group">
+          <label data-i18n="outputNameLabel">💾 Output name</label>
+          <div class="name-input-container">
+            <input type="text" id="output-name" data-i18n-placeholder="outputPlaceholder" placeholder="merged_video" value="merged_video" />
+            <span class="extension-label">.mp4</span>
+          </div>
+        </div>
+      </div>
+
+      <button id="merge-btn" class="merge-btn" data-i18n="mergeButton" disabled>Merge</button>
+    </main>
+
+    <!-- Loading Overlay -->
+    <div id="loading-overlay" class="overlay hidden">
+      <div class="overlay-content">
+        <div class="spinner"></div>
+        <p id="status-msg" class="status-msg">Merging...</p>
+        <p id="status-detail" class="status-detail" data-i18n="processingWait">This may take several minutes depending on file size</p>
+      </div>
+    </div>
+
+    <!-- Success Modal -->
+    <div id="success-modal" class="modal hidden">
+      <div class="modal-content success-modal">
+        <div class="success-icon">✓</div>
+        <h2 data-i18n="successTitle">Success!</h2>
+        <p id="result-msg" class="result-msg"></p>
+        <div class="modal-buttons">
+          <button id="open-folder-btn" class="secondary-btn" data-i18n="openFolderButton">Open folder</button>
+          <button id="close-modal-btn" class="primary-btn" data-i18n="closeButton">Close</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Error Modal -->
+    <div id="error-modal" class="modal hidden">
+      <div class="modal-content error-modal">
+        <div class="error-icon">✕</div>
+        <h2 data-i18n="errorTitle">Error</h2>
+        <p id="error-msg" class="error-msg"></p>
+        <div class="modal-buttons">
+          <button id="close-error-btn" class="primary-btn" data-i18n="closeButton">Close</button>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
