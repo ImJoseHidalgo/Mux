@@ -3,8 +3,8 @@
 const translations = {
   en: {
     // Page title and main header
-    title: 'Mux',
-    mainHeader: 'Mux',
+    title: 'Mux - Video and Audio Merger',
+    mainHeader: 'Mux - Video and Audio Merger',
 
     // File selection section
     videoLabel: '📹 Video',
@@ -43,8 +43,8 @@ const translations = {
   },
   es: {
     // Page title and main header
-    title: 'Mux',
-    mainHeader: 'Mux',
+    title: 'Mux - Video y Audio Fusionador',
+    mainHeader: 'Mux - Video y Audio Fusionador',
 
     // File selection section
     videoLabel: '📹 Video',

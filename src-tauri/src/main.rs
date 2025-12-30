@@ -2,5 +2,5 @@
 #![cfg_attr(not(debug_assertions), windows_subsystem = "windows")]
 
 fn main() {
-    video_audio_merger_lib::run()
+    mux_lib::run()
 }
