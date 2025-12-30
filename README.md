@@ -2,6 +2,8 @@
 
 Una aplicación de escritorio simple para fusionar archivos de video y audio. **FFmpeg viene incluido**, no necesitas instalarlo por separado.
 
+<image src="src/assets/example.png" width="600px" />
+
 ## Características
 
 - Interfaz gráfica intuitiva
