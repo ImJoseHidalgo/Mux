@@ -1,7 +1,13 @@
+// Merge state
 let videoPath = null;
 let audioPath = null;
 let outputDir = null;
 let customOutputDir = null;
+
+// Compress state
+let compressVideoPath = null;
+let compressOutputDir = null;
+let compressCustomOutputDir = null;
 
 console.log('main.js loaded');
 console.log('Tauri API:', window.__TAURI__);
@@ -150,6 +156,109 @@ function closeSuccessModal() {
   document.getElementById('success-modal').classList.add('hidden');
 }
 
+// --- Tab switching ---
+function switchTab(tabName) {
+  document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+  document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
+  document.querySelector(`.tab-btn[data-tab="${tabName}"]`).classList.add('active');
+  document.getElementById(`tab-${tabName}`).classList.add('active');
+}
+
+// --- Compress functions ---
+async function selectCompressVideo() {
+  try {
+    const selected = await window.__TAURI__.dialog.open({
+      multiple: false,
+      filters: [{
+        name: 'Video',
+        extensions: ['mp4', 'avi', 'mkv', 'mov', 'flv', 'wmv', 'webm']
+      }]
+    });
+
+    if (selected) {
+      compressVideoPath = selected;
+      document.getElementById('compress-video-name').textContent = selected.split('/').pop();
+      checkReadyToCompress();
+    }
+  } catch (error) {
+    console.error('Error selecting video:', error);
+  }
+}
+
+async function selectCompressOutputFolder() {
+  try {
+    const selected = await window.__TAURI__.dialog.open({
+      directory: true,
+      multiple: false
+    });
+
+    if (selected) {
+      compressCustomOutputDir = selected;
+      const folderName = selected.split('/').pop();
+      document.getElementById('compress-output-folder').textContent = `📁 ${folderName}`;
+    }
+  } catch (error) {
+    console.error('Error selecting folder:', error);
+  }
+}
+
+function checkReadyToCompress() {
+  const compressBtn = document.getElementById('compress-btn');
+  if (compressVideoPath) {
+    compressBtn.disabled = false;
+  }
+}
+
+async function compressVideo() {
+  const defaultName = t('compressOutputPlaceholder');
+  const baseName = document.getElementById('compress-output-name').value.trim() || defaultName;
+  const outputName = baseName + '.mp4';
+
+  const crf = parseInt(document.getElementById('crf-slider').value);
+  const preset = document.getElementById('preset-select').value;
+  const audioBitrate = document.getElementById('audio-bitrate-select').value;
+
+  const loadingOverlay = document.getElementById('loading-overlay');
+  const statusMsg = document.getElementById('status-msg');
+  const statusDetail = document.getElementById('status-detail');
+  const compressBtn = document.getElementById('compress-btn');
+
+  loadingOverlay.classList.remove('hidden');
+  compressBtn.disabled = true;
+  statusMsg.textContent = t('preparingFiles');
+  statusDetail.textContent = t('compressingWait');
+
+  await new Promise(resolve => setTimeout(resolve, 100));
+
+  statusMsg.textContent = t('compressingVideo');
+
+  try {
+    const result = await window.__TAURI__.core.invoke('compress_video', {
+      videoPath: compressVideoPath,
+      outputName,
+      outputDir: compressCustomOutputDir,
+      crf,
+      preset,
+      audioBitrate,
+    });
+
+    loadingOverlay.classList.add('hidden');
+
+    const fileName = result.split('/').pop();
+    document.getElementById('result-msg').textContent = t('successMessage', { fileName });
+    compressOutputDir = result.substring(0, result.lastIndexOf('/'));
+    outputDir = compressOutputDir;
+    document.getElementById('success-modal').classList.remove('hidden');
+    compressBtn.disabled = false;
+
+  } catch (error) {
+    loadingOverlay.classList.add('hidden');
+    document.getElementById('error-msg').textContent = error;
+    document.getElementById('error-modal').classList.remove('hidden');
+    compressBtn.disabled = false;
+  }
+}
+
 function closeErrorModal() {
   document.getElementById('error-modal').classList.add('hidden');
 }
@@ -199,6 +308,32 @@ window.addEventListener("DOMContentLoaded", () => {
     closeErrorBtn.addEventListener('click', closeErrorModal);
     console.log('Close error button listener added');
   }
+  // Tab switching
+  document.querySelectorAll('.tab-btn').forEach(btn => {
+    btn.addEventListener('click', () => switchTab(btn.dataset.tab));
+  });
+
+  // Compress tab buttons
+  const selectCompressVideoBtn = document.getElementById('select-compress-video');
+  const selectCompressOutputBtn = document.getElementById('select-compress-output');
+  const compressBtn = document.getElementById('compress-btn');
+  const crfSlider = document.getElementById('crf-slider');
+
+  if (selectCompressVideoBtn) {
+    selectCompressVideoBtn.addEventListener('click', selectCompressVideo);
+  }
+  if (selectCompressOutputBtn) {
+    selectCompressOutputBtn.addEventListener('click', selectCompressOutputFolder);
+  }
+  if (compressBtn) {
+    compressBtn.addEventListener('click', compressVideo);
+  }
+  if (crfSlider) {
+    crfSlider.addEventListener('input', (e) => {
+      document.getElementById('crf-value').textContent = e.target.value;
+    });
+  }
+
   if (languageSelector) {
     languageSelector.addEventListener('change', (e) => {
       window.i18n.setLanguage(e.target.value);
@@ -211,6 +346,12 @@ window.addEventListener("DOMContentLoaded", () => {
       }
       if (!customOutputDir) {
         document.getElementById('output-folder').textContent = t('sameAsVideo');
+      }
+      if (!compressVideoPath) {
+        document.getElementById('compress-video-name').textContent = t('notSelected');
+      }
+      if (!compressCustomOutputDir) {
+        document.getElementById('compress-output-folder').textContent = t('sameAsVideo');
       }
     });
     console.log('Language selector listener added');

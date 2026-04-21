@@ -22,35 +22,114 @@
         </div>
       </div>
 
-      <div class="file-section">
-        <div class="file-input-group">
-          <label data-i18n="videoLabel">📹 Video</label>
-          <button id="select-video" class="select-btn" data-i18n="selectButton">Select</button>
-          <span id="video-name" class="file-name" data-i18n="notSelected">Not selected</span>
-        </div>
-
-        <div class="file-input-group">
-          <label data-i18n="audioLabel">🎵 Audio</label>
-          <button id="select-audio" class="select-btn" data-i18n="selectButton">Select</button>
-          <span id="audio-name" class="file-name" data-i18n="notSelected">Not selected</span>
-        </div>
-
-        <div class="file-input-group">
-          <label data-i18n="outputFolderLabel">📁 Output folder</label>
-          <button id="select-output" class="select-btn" data-i18n="selectButton">Select</button>
-          <span id="output-folder" class="file-name" data-i18n="sameAsVideo">Same folder as video</span>
-        </div>
-
-        <div class="file-input-group">
-          <label data-i18n="outputNameLabel">💾 Output name</label>
-          <div class="name-input-container">
-            <input type="text" id="output-name" data-i18n-placeholder="outputPlaceholder" placeholder="merged_video" value="merged_video" />
-            <span class="extension-label">.mp4</span>
-          </div>
-        </div>
+      <!-- Tab Navigation -->
+      <div class="tab-nav">
+        <button class="tab-btn active" data-tab="merge" data-i18n="tabMerge">Merge</button>
+        <button class="tab-btn" data-tab="compress" data-i18n="tabCompress">Compress</button>
       </div>
 
-      <button id="merge-btn" class="merge-btn" data-i18n="mergeButton" disabled>Merge</button>
+      <!-- Merge Tab -->
+      <div id="tab-merge" class="tab-content active">
+        <div class="file-section">
+          <div class="file-input-group">
+            <label data-i18n="videoLabel">📹 Video</label>
+            <button id="select-video" class="select-btn" data-i18n="selectButton">Select</button>
+            <span id="video-name" class="file-name" data-i18n="notSelected">Not selected</span>
+          </div>
+
+          <div class="file-input-group">
+            <label data-i18n="audioLabel">🎵 Audio</label>
+            <button id="select-audio" class="select-btn" data-i18n="selectButton">Select</button>
+            <span id="audio-name" class="file-name" data-i18n="notSelected">Not selected</span>
+          </div>
+
+          <div class="file-input-group">
+            <label data-i18n="outputFolderLabel">📁 Output folder</label>
+            <button id="select-output" class="select-btn" data-i18n="selectButton">Select</button>
+            <span id="output-folder" class="file-name" data-i18n="sameAsVideo">Same folder as video</span>
+          </div>
+
+          <div class="file-input-group">
+            <label data-i18n="outputNameLabel">💾 Output name</label>
+            <div class="name-input-container">
+              <input type="text" id="output-name" data-i18n-placeholder="outputPlaceholder" placeholder="merged_video" value="merged_video" />
+              <span class="extension-label">.mp4</span>
+            </div>
+          </div>
+        </div>
+
+        <button id="merge-btn" class="merge-btn" data-i18n="mergeButton" disabled>Merge</button>
+      </div>
+
+      <!-- Compress Tab -->
+      <div id="tab-compress" class="tab-content">
+        <div class="file-section">
+          <div class="file-input-group">
+            <label data-i18n="compressVideoLabel">📹 Video</label>
+            <button id="select-compress-video" class="select-btn" data-i18n="selectButton">Select</button>
+            <span id="compress-video-name" class="file-name" data-i18n="notSelected">Not selected</span>
+          </div>
+
+          <div class="file-input-group">
+            <label data-i18n="compressOutputFolderLabel">📁 Output folder</label>
+            <button id="select-compress-output" class="select-btn" data-i18n="selectButton">Select</button>
+            <span id="compress-output-folder" class="file-name" data-i18n="sameAsVideo">Same folder as video</span>
+          </div>
+
+          <div class="file-input-group">
+            <label data-i18n="compressOutputNameLabel">💾 Output name</label>
+            <div class="name-input-container">
+              <input type="text" id="compress-output-name" data-i18n-placeholder="compressOutputPlaceholder" placeholder="compressed_video" value="compressed_video" />
+              <span class="extension-label">.mp4</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="file-section settings-section">
+          <h3 class="settings-title" data-i18n="compressionSettings">Compression Settings</h3>
+
+          <div class="setting-group">
+            <div class="setting-header">
+              <label data-i18n="qualityLabel">🎚️ Quality (CRF)</label>
+              <span id="crf-value" class="setting-value">23</span>
+            </div>
+            <input type="range" id="crf-slider" class="slider" min="18" max="28" value="23" step="1" />
+            <div class="slider-labels">
+              <span data-i18n="higherQuality">Higher quality</span>
+              <span data-i18n="smallerFile">Smaller file</span>
+            </div>
+          </div>
+
+          <div class="setting-group">
+            <label data-i18n="presetLabel">⚡ Speed Preset</label>
+            <select id="preset-select" class="setting-select">
+              <option value="ultrafast" data-i18n="presetUltrafast">Ultrafast</option>
+              <option value="superfast" data-i18n="presetSuperfast">Superfast</option>
+              <option value="veryfast" data-i18n="presetVeryfast">Very fast</option>
+              <option value="faster" data-i18n="presetFaster">Faster</option>
+              <option value="fast" data-i18n="presetFast">Fast</option>
+              <option value="medium" selected data-i18n="presetMedium">Medium</option>
+              <option value="slow" data-i18n="presetSlow">Slow</option>
+              <option value="slower" data-i18n="presetSlower">Slower</option>
+              <option value="veryslow" data-i18n="presetVeryslow">Very slow</option>
+            </select>
+            <span class="setting-hint" data-i18n="presetHint">Slower = better compression at same quality</span>
+          </div>
+
+          <div class="setting-group">
+            <label data-i18n="audioBitrateLabel">🎵 Audio Bitrate</label>
+            <select id="audio-bitrate-select" class="setting-select">
+              <option value="96k">96 kbps</option>
+              <option value="128k" selected>128 kbps</option>
+              <option value="192k">192 kbps</option>
+              <option value="256k">256 kbps</option>
+              <option value="320k">320 kbps</option>
+            </select>
+          </div>
+        </div>
+
+        <button id="compress-btn" class="merge-btn" data-i18n="compressButton" disabled>Compress</button>
+      </div>
     </main>
 
     <!-- Loading Overlay -->

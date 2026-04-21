@@ -3,8 +3,8 @@
 const translations = {
   en: {
     // Page title and main header
-    title: 'Mux - Video and Audio Merger',
-    mainHeader: 'Mux - Video and Audio Merger',
+    title: 'Mux - Video and Audio Manager',
+    mainHeader: 'Mux - Video and Audio Manager',
 
     // File selection section
     videoLabel: '📹 Video',
@@ -38,13 +38,42 @@ const translations = {
     // Placeholder
     outputPlaceholder: 'merged_video',
 
+    // Tabs
+    tabMerge: '🔗 Merge',
+    tabCompress: '📦 Compress',
+
+    // Compress tab
+    compressVideoLabel: '📹 Video',
+    compressOutputFolderLabel: '📁 Output folder',
+    compressOutputNameLabel: '💾 Output name',
+    compressOutputPlaceholder: 'compressed_video',
+    compressButton: 'Compress',
+    compressionSettings: 'Compression Settings',
+    qualityLabel: '🎚️ Quality (CRF)',
+    higherQuality: 'Higher quality',
+    smallerFile: 'Smaller file',
+    presetLabel: '⚡ Speed Preset',
+    presetUltrafast: 'Ultrafast',
+    presetSuperfast: 'Superfast',
+    presetVeryfast: 'Very fast',
+    presetFaster: 'Faster',
+    presetFast: 'Fast',
+    presetMedium: 'Medium',
+    presetSlow: 'Slow',
+    presetSlower: 'Slower',
+    presetVeryslow: 'Very slow',
+    presetHint: 'Slower = better compression at same quality',
+    audioBitrateLabel: '🎵 Audio Bitrate',
+    compressingVideo: 'Compressing video...',
+    compressingWait: 'This may take several minutes depending on file size and settings',
+
     // Language selector
     languageLabel: '🌐',
   },
   es: {
     // Page title and main header
-    title: 'Mux - Video y Audio Fusionador',
-    mainHeader: 'Mux - Video y Audio Fusionador',
+    title: 'Mux - Video y Audio Manager',
+    mainHeader: 'Mux - Video y Audio Manager',
 
     // File selection section
     videoLabel: '📹 Video',
@@ -77,6 +106,35 @@ const translations = {
 
     // Placeholder
     outputPlaceholder: 'video_fusionado',
+
+    // Tabs
+    tabMerge: '🔗 Fusionar',
+    tabCompress: '📦 Comprimir',
+
+    // Compress tab
+    compressVideoLabel: '📹 Video',
+    compressOutputFolderLabel: '📁 Carpeta de salida',
+    compressOutputNameLabel: '💾 Nombre de salida',
+    compressOutputPlaceholder: 'video_comprimido',
+    compressButton: 'Comprimir',
+    compressionSettings: 'Ajustes de compresión',
+    qualityLabel: '🎚️ Calidad (CRF)',
+    higherQuality: 'Mayor calidad',
+    smallerFile: 'Archivo más pequeño',
+    presetLabel: '⚡ Velocidad',
+    presetUltrafast: 'Ultra rápido',
+    presetSuperfast: 'Súper rápido',
+    presetVeryfast: 'Muy rápido',
+    presetFaster: 'Más rápido',
+    presetFast: 'Rápido',
+    presetMedium: 'Medio',
+    presetSlow: 'Lento',
+    presetSlower: 'Más lento',
+    presetVeryslow: 'Muy lento',
+    presetHint: 'Más lento = mejor compresión a la misma calidad',
+    audioBitrateLabel: '🎵 Bitrate de audio',
+    compressingVideo: 'Comprimiendo video...',
+    compressingWait: 'Esto puede tardar varios minutos dependiendo del tamaño y los ajustes',
 
     // Language selector
     languageLabel: '🌐',
